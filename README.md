@@ -228,12 +228,28 @@ The following parameters can be adjusted in `rag_engine.py`:
 - Only question context is sent to Gemini API
 - Consider adding cleanup logic for production use
 
+## 📚 Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+- **[Installation Guide](docs/INSTALLATION.md)**: Detailed setup instructions for all platforms
+- **[User Guide](docs/USER_GUIDE.md)**: Complete guide on using the application effectively
+- **[API Reference](docs/API_REFERENCE.md)**: Technical documentation for developers
+- **[Architecture](docs/ARCHITECTURE.md)**: System design and component breakdown
+- **[Contributing](docs/CONTRIBUTING.md)**: Guidelines for contributing to the project
+- **[Changelog](docs/CHANGELOG.md)**: Version history and updates
+
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to:
-- Report bugs
-- Suggest new features
-- Submit pull requests
+Contributions are welcome! Please read our [Contributing Guidelines](docs/CONTRIBUTING.md) before submitting PRs.
+
+Ways to contribute:
+- 🐛 Report bugs
+- 💡 Suggest new features
+- 📝 Improve documentation
+- 🧪 Add tests
+- ⚡ Optimize performance
+- 🎨 Enhance UI/UX
 
 ## 📄 License
 
@@ -241,11 +257,19 @@ This project is created for the GenAI For GenZ Challenge.
 
 ## 👨‍💻 Author
 
-Built with venkii for the GenAI For GenZ Challenge
+Built with ❤️ by venkii for the GenAI For GenZ Challenge
 
 ## 🙏 Acknowledgments
 
 - Google Gemini for powerful AI capabilities
 - Streamlit for the amazing web framework
 - FAISS for efficient similarity search
+- Sentence Transformers for semantic embeddings
 - The open-source community
+
+## 📞 Support
+
+- 📖 [Read the Documentation](docs/)
+- 🐛 [Report Issues](https://github.com/yourusername/policy-navigator/issues)
+- 💬 [Discussions](https://github.com/yourusername/policy-navigator/discussions)
+- 📧 Contact: your.email@example.com
