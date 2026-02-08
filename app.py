@@ -2,18 +2,31 @@ from dotenv import load_dotenv
 import streamlit as st
 import os
 from rag_engine import PolicyRAG
+import base64
 
 load_dotenv()
 
-st.set_page_config(page_title="Policy Document Navigator")
-
-st.title("📘 Policy Document Navigator")
-st.write("Upload a policy PDF and ask questions in plain English.")
-
-uploaded_file = st.file_uploader(
-    "Upload Policy PDF",
-    type=["pdf"]
+st.set_page_config(
+    page_title="Policy Chat Assistant",
+    page_icon="💬",
+    layout="wide"
 )
+
+# Initialize session state for chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+if "pdf_loaded" not in st.session_state:
+    st.session_state.pdf_loaded = False
+
+if "current_pdf_path" not in st.session_state:
+    st.session_state.current_pdf_path = None
+
+if "show_pdf" not in st.session_state:
+    st.session_state.show_pdf = False
+
+if "selected_page" not in st.session_state:
+    st.session_state.selected_page = 1
 
 @st.cache_resource
 def init_rag():
@@ -21,25 +34,85 @@ def init_rag():
 
 rag = init_rag()
 
-if uploaded_file:
-    os.makedirs("temp_uploads", exist_ok=True)
-    file_path = f"temp_uploads/{uploaded_file.name}"
-
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.read())
-
-    with st.spinner("Processing policy document..."):
-        rag.load_pdf(file_path)
-
-    st.success("Policy loaded successfully!")
-
-    question = st.text_area("Ask a question")
-
-    if st.button("Get Answer"):
-        if question.strip():
-            with st.spinner("Analyzing policy..."):
-                answer = rag.ask(question)
-            st.markdown("### ✅ Answer")
-            st.write(answer)
+# Sidebar for PDF upload
+with st.sidebar:
+    st.header("📄 Document Upload")
+    uploaded_file = st.file_uploader(
+        "Upload Policy PDF",
+        type=["pdf"],
+        help="Upload a policy document to start chatting"
+    )
+    
+    if uploaded_file:
+        os.makedirs("temp_uploads", exist_ok=True)
+        file_path = f"temp_uploads/{uploaded_file.name}"
+        
+        with open(file_path, "wb") as f:
+            f.write(uploaded_file.read())
+        
+        if not st.session_state.pdf_loaded:
+            with st.spinner("Processing document..."):
+                rag.load_pdf(file_path)
+                st.session_state.pdf_loaded = True
+                # Add welcome message
+                if len(st.session_state.messages) == 0:
+                    st.session_state.messages.append({
+                        "role": "assistant",
+                        "content": f"📘 I've loaded **{uploaded_file.name}**. Ask me anything about this policy!"
+                    })
+            st.success("✅ Document loaded!")
         else:
-            st.warning("Please enter a question.")
+            st.info(f"📄 **{uploaded_file.name}** is loaded")
+    
+    st.divider()
+    
+    if st.button("🗑️ Clear Chat", use_container_width=True):
+        st.session_state.messages = []
+        if st.session_state.pdf_loaded:
+            st.session_state.messages.append({
+                "role": "assistant",
+                "content": "Chat cleared! Ask me anything about the policy."
+            })
+        st.rerun()
+    
+    st.divider()
+    st.markdown("### 💡 Example Questions")
+    st.markdown("""
+    - What is the remote work policy?
+    - How many vacation days?
+    - What are the health benefits?
+    - Explain the confidentiality clause
+    """)
+
+# Main chat interface
+st.title("💬 Policy Chat Assistant")
+st.caption("Your AI-powered policy document chatbot")
+
+# Display chat messages
+chat_container = st.container()
+with chat_container:
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+# Chat input
+if st.session_state.pdf_loaded:
+    if prompt := st.chat_input("Ask me anything about the policy..."):
+        # Add user message to chat
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        
+        # Display user message
+        with st.chat_message("user"):
+            st.markdown(prompt)
+        
+        # Get bot response
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                response = rag.ask(prompt)
+                st.markdown(response)
+        
+        # Add assistant response to chat history
+        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.rerun()
+else:
+    st.info("👈 Please upload a policy document from the sidebar to start chatting!")

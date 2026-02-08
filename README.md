@@ -1,15 +1,17 @@
-# 📘 Policy Document Navigator
+# � Policy Chat Assistant
 
-An AI-powered chatbot that makes understanding complex policy documents effortless. Built for the GenAI For GenZ Challenge, this tool uses Retrieval-Augmented Generation (RAG) to help users extract information from policy PDFs through natural language questions.
+An AI-powered chatbot that makes understanding complex policy documents effortless. Built for the GenAI For GenZ Challenge, this tool uses Retrieval-Augmented Generation (RAG) to help users extract information from policy PDFs through natural, conversational interactions.
 
 ## 🌟 Features
 
-- **PDF Upload**: Simply upload any policy document in PDF format
-- **Natural Language Queries**: Ask questions in plain English - no legal jargon needed
-- **Accurate Answers**: Get precise answers extracted directly from your policy document
-- **Fast Semantic Search**: Powered by FAISS vector similarity search for lightning-fast retrieval
-- **Smart Compression**: Automatically compresses lengthy documents while preserving key information
-- **User-Friendly Interface**: Built with Streamlit for an intuitive experience
+- **💬 Chat Interface**: Interactive chat experience with conversation history
+- **📄 PDF Upload**: Simply upload any policy document in PDF format via sidebar
+- **🗨️ Natural Conversations**: Ask questions in plain English - no legal jargon needed
+- **✅ Accurate Answers**: Get precise answers extracted directly from your policy document
+- **⚡ Fast Semantic Search**: Powered by FAISS vector similarity search for lightning-fast retrieval
+- **🗜️ Smart Compression**: Automatically compresses lengthy documents while preserving key information
+- **🎨 Modern UI**: Clean chat interface with message bubbles and conversation flow
+- **🗑️ Clear Chat**: Reset conversation anytime while keeping your document loaded
 
 ## 🛠️ Tech Stack
 
@@ -59,13 +61,15 @@ An AI-powered chatbot that makes understanding complex policy documents effortle
    ```
 
 2. **Upload a policy document**
-   - Click "Browse files" or drag and drop a PDF file
+   - Use the sidebar on the left to upload a PDF file
    - Wait for the document to be processed
+   - You'll see a welcome message when ready
 
-3. **Ask questions**
-   - Type your question in the text area
-   - Click "Get Answer"
-   - Receive accurate answers based on the policy content
+3. **Start chatting**
+   - Type your question in the chat input at the bottom
+   - Press Enter or click send
+   - View the conversation history as you chat
+   - Click "Clear Chat" to reset the conversation anytime
 
 ## 📖 Example Questions
 
@@ -80,7 +84,7 @@ An AI-powered chatbot that makes understanding complex policy documents effortle
 ```
 policy-navigator/
 │
-├── app.py                  # Streamlit web application
+├── app.py                  # Streamlit chatbot interface
 ├── rag_engine.py           # RAG implementation with FAISS and Gemini
 ├── scaledown.py            # Text compression utility
 ├── requirements.txt        # Python dependencies
@@ -228,28 +232,12 @@ The following parameters can be adjusted in `rag_engine.py`:
 - Only question context is sent to Gemini API
 - Consider adding cleanup logic for production use
 
-## 📚 Documentation
-
-Comprehensive documentation is available in the `docs/` directory:
-
-- **[Installation Guide](docs/INSTALLATION.md)**: Detailed setup instructions for all platforms
-- **[User Guide](docs/USER_GUIDE.md)**: Complete guide on using the application effectively
-- **[API Reference](docs/API_REFERENCE.md)**: Technical documentation for developers
-- **[Architecture](docs/ARCHITECTURE.md)**: System design and component breakdown
-- **[Contributing](docs/CONTRIBUTING.md)**: Guidelines for contributing to the project
-- **[Changelog](docs/CHANGELOG.md)**: Version history and updates
-
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [Contributing Guidelines](docs/CONTRIBUTING.md) before submitting PRs.
-
-Ways to contribute:
-- 🐛 Report bugs
-- 💡 Suggest new features
-- 📝 Improve documentation
-- 🧪 Add tests
-- ⚡ Optimize performance
-- 🎨 Enhance UI/UX
+Contributions are welcome! Feel free to:
+- Report bugs
+- Suggest new features
+- Submit pull requests
 
 ## 📄 License
 
@@ -264,12 +252,4 @@ Built with ❤️ by venkii for the GenAI For GenZ Challenge
 - Google Gemini for powerful AI capabilities
 - Streamlit for the amazing web framework
 - FAISS for efficient similarity search
-- Sentence Transformers for semantic embeddings
 - The open-source community
-
-## 📞 Support
-
-- 📖 [Read the Documentation](docs/)
-- 🐛 [Report Issues](https://github.com/yourusername/policy-navigator/issues)
-- 💬 [Discussions](https://github.com/yourusername/policy-navigator/discussions)
-- 📧 Contact: your.email@example.com
